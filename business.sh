@@ -143,7 +143,17 @@ case $operation in
 
                 more -d -f $file_path
                 ;;
+        5)
+                if [ -z "$file_path" ]                                                  #user did not perform case 1(no file selected)
+                then
+                echo -e "Must enter path of the file you want to use first...\n"
+                continue
+                fi
 
+                echo -e "Please enter path of the file you want to save the results:\n"
+                read save_path;
+                cp $file_path $save_path
+                ;;
         6)
                 exit 0
                 ;;
