@@ -65,7 +65,7 @@ case $operation in
                                 awk -v var=$id -F, '$1==var' $file_path
 
                                 echo -e "New values:\n"
-                                sed -i "s/$temp/$new_val/" $file_path                                   #using "" instead of '' so that sed recognizes temp and new_val as variables!!
+                                sed -i "s/$temp/$new_val/" $file_path                                     #using "" instead of '' so that sed recognizes temp and new_val as variables!!
                                 awk -v var=$new_val -F, '$1==var' $file_path
                                 ;;
                         2)
