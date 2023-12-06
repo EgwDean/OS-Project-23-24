@@ -1,3 +1,10 @@
+#####################################
+# 1093316 Charalampos Anastasiou
+# 1093320 Konstantinos Anastasopoulos
+# 109???? Fillipos Dallas
+#####################################
+
+
 #!/bin/bash
 
 
