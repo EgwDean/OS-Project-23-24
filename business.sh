@@ -1,7 +1,6 @@
 #!/bin/bash
 
 
-
 while true; do                          #keep showing main menu
 
 echo -e "Main Menu:\n\n"
