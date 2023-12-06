@@ -51,6 +51,11 @@ case $operation in
               
                 more -d -f $file_path
                 ;;
+        
+         6)
+                exit 0
+                ;;
+
 *)
 ;;
 esac
