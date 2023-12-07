@@ -8,7 +8,7 @@
 
 
 
-while true; do                          #keep showing main menu
+while true; do                          #keep showing main menu (until user exits program)
 
 echo -e "Main Menu:\n\n"
 echo -e "[1] Επιλογή αρχείου επιχειρήσεων\n[2] Προβολή στοιχείων επιχείρησης\n[3] Αλλαγή στοιχείου επιχείρησης\n[4] Προβολή αρχείου\n[5] Αποθήκευση αρχείου\n[6] Έξοδος\n"
@@ -59,7 +59,7 @@ case $operation in
                 case $field in
 
                         1)
-                                temp=$(awk -v var=$id -F, '$1==var {print $1}' $file_path)               #temp variable to store field/column value(which then will be altered by sed)
+                                temp=$(awk -v var=$id -F, '$1==var {print $1}' $file_path)               #temp variable to store value based on id and field(which then will be altered by sed)
 
                                 echo -e "Old values:\n"
                                 awk -v var=$id -F, '$1==var' $file_path
