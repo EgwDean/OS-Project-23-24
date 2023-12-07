@@ -115,7 +115,7 @@ ID,BusinessName,AddressLine2,AddressLine3,PostCode,Longitude,Latitude
 101490,Bellgrove Hotel,607 Gallowgate,Glasgow,G40 2PG,-4.222186,55.854997
 360873,Belvidere Bowling Club,23 Silverdale Street,Glasgow,G31 4LE,-4.200938,55.847138
 35987,Bensons Cafe,1300 Duke Street,Glasgow,G31 4EB,-4.199841,55.853449
-"26315,""Benson's Pantry (Inshops Unit 6, 7, 8)"",1300 Duke Street,Glasgow,G31 4EB,-4.199841,55.853449"
+26315,""Benson's Pantry (Inshops Unit 6, 7, 8)"",1300 Duke Street,Glasgow,G31 4EB,-4.199841,55.853449
 480304,Best Chippy,55 Mount Annan Drive,Glasgow,G44 4RX,-4.25474,55.823937
 23319,Bibi's Cantina,599 Dumbarton Road,Glasgow,G11 6HY,-4.317637,55.870501
 19699,Biggar's Cafe,273 Sauchiehall Street,Glasgow,G2 3HQ,-4.263947,55.865326
@@ -139,7 +139,7 @@ ID,BusinessName,AddressLine2,AddressLine3,PostCode,Longitude,Latitude
 18545,Bridgeton Community Learning Centre,68 Dale Street,Glasgow,G40 4TL,-4.222541,55.844979
 29379,British Bakeries Canteen,783 Duke Street,Glasgow,G31 1LL,-4.210019,55.858803
 534333,Broad Street Cafe,60 Broad Street,Glasgow,G40 2QN,-4.223796,55.850457
-534357,Brooklands CafŽ,1632 Great Western Road,Glasgow,G13 1HH,-4.324127,55.890026
+534357,Brooklands CafÂŽ,1632 Great Western Road,Glasgow,G13 1HH,-4.324127,55.890026
 77482,Broomton Community Shop,42 Broomton Road,Glasgow,G21 3RU,-4.203822,55.89693
 200645,Brown's Bar and Brasserie,1 George Square,Glasgow,G2 1DY,-4.250847,55.860453
 606997,Brutti Compadres,35 Virginia Street,Glasgow,G1 1TN,-4.250545,55.858544
@@ -1059,7 +1059,7 @@ ID,BusinessName,AddressLine2,AddressLine3,PostCode,Longitude,Latitude
 433012,Thairiffic,303 Sauchiehall Street,Glasgow,G2 3HQ,-4.263947,55.865326
 27018,The Albany Cafe,44 Ashley Street,Glasgow,G3 6DS,-4.272108,55.869876
 594161,The Amarillo Cafe,18 Craigbank Drive,Glasgow,G53 6RA,-4.362041,55.816233
-315991,The Annexe CafŽ,9 Stewartville Street,Glasgow,G11 5PE,-4.304804,55.871093
+315991,The Annexe CafÂŽ,9 Stewartville Street,Glasgow,G11 5PE,-4.304804,55.871093
 624672,The Arc Cafe,340 Ashgill Road,Glasgow,G22 7HW,-4.240541,55.893769
 53576,The Arches,253 Argyle Street,Glasgow,G2 8DL,-4.258365,55.858383
 585885,The Ark Cafe,40 George Street,Glasgow,G1 1QE,-4.241682,55.860863
