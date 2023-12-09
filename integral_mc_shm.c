@@ -124,7 +124,7 @@ int main(void) //main function
         shared_vec[i]=0;
     }
 
-    t0=get_wtime(); //getting the time in the start of the comutation
+    t0=get_wtime(); //getting the time in the start of the computation
     for(int i=0; i<workers; i++) //creating and using the workers
     {
         pid=fork();
