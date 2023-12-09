@@ -1,3 +1,7 @@
+//Konstantinos Anastasopoulos, 1093320
+//Charalampos Anastasiou, 1093316
+//Filippos Merkourios Dalas, 1096314
+
 #define _SVID_SOURCE
 #include<stdio.h>
 #include<stdlib.h>
