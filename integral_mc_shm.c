@@ -114,7 +114,7 @@ int main(void) //main function
 
     while(workers<=0 || workers>cores) //the user cannot enter a number of workers greater that the number of cores
     {
-        printf("Enter the number of workers to compute the integral. It has to be at most equal to the numbers of available processor cores:\n");
+        printf("Enter the number of workers to compute the integral. It has to be at most equal to the number of available processor cores:\n");
         scanf("%d", &workers);
     }
 
