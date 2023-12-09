@@ -25,7 +25,13 @@ case $operation in
                 then
                         file_path=/home/st1093316/bash_scripting/Businesses.csv
                 fi
-                echo -e "You have selected the file with path $file_path\n"
+
+                if [[ -f "$file_path" ]]                                                        # error handling for non existent file
+                then
+                        echo -e "You have selected the file with path $file_path\n"
+                else
+                        echo -e "No such file or directory\n"
+                fi
                 ;;
         2)
                 if [ -z "$file_path" ]                                                           #user did not perform case 1(no file selected)
