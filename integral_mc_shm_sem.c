@@ -98,6 +98,7 @@ void worker(int id, int workers, double *shared_val) //worker function computing
     unsigned long const n=24e7; //number of subintervals
     const double dx=(b-a)/n; //width of each subinterval
     double result=0; //partial result calculated by each worker
+    const long tseed=10; //seed value to get a deterministic sequence of pseudorandom numbers
     srand48(tseed+id); //each worker gets different seed
     for(unsigned long i=id; i<n; i+=workers) //random values put in the function
     {
@@ -112,8 +113,7 @@ void worker(int id, int workers, double *shared_val) //worker function computing
 
 int main(void) //main function
 {
-    int ref=0.73864299803689018; //approximate value of the integral calculated by Wolfram Alpha
-    const long tseed=10; //seed value to get a deterministic sequence of pseudorandom numbers
+    double ref=0.73864299803689018; //approximate value of the integral calculated by Wolfram Alpha
     double t0, t1; //variables that store time, their difference tells the time it took to compute the integral
     double integral=0; //value of the integral
     int pid; //id of the processes
