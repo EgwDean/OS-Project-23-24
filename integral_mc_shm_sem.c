@@ -129,9 +129,9 @@ int main(void) //main function
 
     shared_val = create_and_map("data.bin", &fd, sizeof(double)); //creating the shared memory
 
-    t0=get_wtime(); //getting the time in the start of the computation
-
     mutex=sem_open("/mutex", O_CREAT | O_EXCL, 0644, 1); //initializing the semaphore
+
+    t0=get_wtime(); //getting the time in the start of the computation
 
     for(int i=0; i<workers; i++) //creating and using the workers
     {
