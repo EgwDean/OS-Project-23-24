@@ -95,6 +95,7 @@ void worker(int id, int workers, double *shared_vec) //worker function computing
     unsigned long const n=24e7; //number of subintervals
     const double dx=(b-a)/n; //width of each subinterval
     double result=0; //partial result calculated by each worker
+    srand48(tseed+id); //each worker gets different seed
     for(unsigned long i=id; i<n; i+=workers) //random values put in the function
     {
         double xi=drand48();
