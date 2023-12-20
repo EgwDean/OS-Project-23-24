@@ -1,11 +1,25 @@
 Βιβλιογραφια:
 
-https://www.gnu.org/software/libc/manual/html_node/Processor-Resources.html
-sysconf()
-
-https://eclass.upatras.gr/modules/document/index.php?course=CEID1135&openDir=/654b37eajSJE
+https://eclass.upatras.gr/modules/document/?course=CEID1135
 create_and_map()
 sync_data()
 unmap_and_close()
 get_wtime()
+read()
+write()
+pipe()
+close()
+execl()
+sigaction()
+waitpid()
+
+https://www.gnu.org/software/libc/manual/html_node/Processor-Resources.html
+sysconf()
+
+https://www.tutorialspoint.com/c_standard_library/c_function_fscanf.htm
+fopen()
+fclose()
+fscanf()
+
+
 
