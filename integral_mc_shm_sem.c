@@ -54,13 +54,6 @@ void *create_and_map(char *fname, int *pfd, int size) //memory allocation
 	return map;
 }
 
-
-void sync_data(void *map, int fd, int size) //synchronize the data between the shared memory and the disk
-{
-    msync(map, size, MS_SYNC);
-    fdatasync(fd);
-}
-
 void unmap_and_close(void *map, int fd, int size) //unmap the memory
 {
     if (munmap(map, size) == -1) {
