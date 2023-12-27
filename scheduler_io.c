@@ -25,7 +25,7 @@ struct Process {
 struct Process* tail = NULL;
 struct Process* head = NULL;
 
-//pipes to send messages from the main program to the signal handler
+//pipe to send messages from the main program to the signal handler
 int pipe_fd[2];
 pid_t pid_io;
 
