@@ -83,19 +83,19 @@ void switch_head_tail(struct Process** head) {
 
 
 //signal handler function that prints information about the terminated child process
-void child_handler() {
+//void child_handler() {
 
-	struct Process terminated_process; //info about the terminated child to be stored here
+//	struct Process terminated_process; //info about the terminated child to be stored here
 
-	if (read(pipe_fd[0], &terminated_process, sizeof(struct Process)) == -1) { //read from pipe
-			perror("read from pipe");
-			exit(EXIT_FAILURE);
-	}
+//	if (read(pipe_fd[0], &terminated_process, sizeof(struct Process)) == -1) { //read from pipe
+//			perror("read from pipe");
+//			exit(EXIT_FAILURE);
+//	}
 
-	printf("process id: %d\n", terminated_process.pid); //print info
-	printf("path/name: %s\n", terminated_process.name);
-	printf("state: %s\n", terminated_process.state);
-}
+//	printf("process id: %d\n", terminated_process.pid); //print info
+//	printf("path/name: %s\n", terminated_process.name);
+//	printf("state: %s\n", terminated_process.state);
+//}
 
 //signal handler function right after request of i/o
 void start_io_handler() {
@@ -127,16 +127,21 @@ void start_io_handler() {
              process->pid = pid; //update the process id to the correct one
 
              //write the process information to the pipe
-             if (write(pipe_fd[1], process, sizeof(struct Process)) == -1) {
-               perror("write to pipe");
-               exit(EXIT_FAILURE);
-             }
+            // if (write(pipe_fd[1], process, sizeof(struct Process)) == -1) {
+              // perror("write to pipe");
+               //exit(EXIT_FAILURE);
+             //}
 
 
              if (waitpid(pid, NULL, 0) == -1) { //wait for the child process to finish
                perror("waitpid");
                exit(EXIT_FAILURE);
                }
+
+
+               printf("process id: %d\n", process->pid); //print info
+               printf("path/name: %s\n", process->name);
+               printf("state: %s\n", process->state);
 
            }
         time_t exit_time = time(NULL); //get the time in the end of the child process
@@ -192,22 +197,22 @@ int main(int argc, char* argv[]) { //read the arguments from the command line
 	}
 
 	//creation of a pipe for communication between the parent process and the signal handler
-	if (pipe(pipe_fd) == -1) {
-			perror("pipe");
-			exit(EXIT_FAILURE);
-	}
+//	if (pipe(pipe_fd) == -1) {
+//			perror("pipe");
+//			exit(EXIT_FAILURE);
+//	}
 
 
 	//setting up the signal handler struct
-	struct sigaction sact;
-	sact.sa_handler = child_handler;
-	sact.sa_flags = 0;
+//	struct sigaction sact;
+//	sact.sa_handler = child_handler;
+//	sact.sa_flags = 0;
 
 	//assigning the signal handler function to the SIGCHLD signal
-	if (sigaction(SIGCHLD, &sact, NULL) == -1) {
-			perror("sigaction");
-			exit(EXIT_FAILURE);
-	}
+//	if (sigaction(SIGCHLD, &sact, NULL) == -1) {
+//			perror("sigaction");
+//		exit(EXIT_FAILURE);
+//	}
 
 
 //------------------------------------------------------------------------------
@@ -255,16 +260,21 @@ while (head != NULL) { //the queue still has nodes in it
 			process->pid = pid; //update the process id to the correct one
 
 			//write the process information to the pipe
-			if (write(pipe_fd[1], process, sizeof(struct Process)) == -1) {
-				perror("write to pipe");
-				exit(EXIT_FAILURE);
-			}
+		//	if (write(pipe_fd[1], process, sizeof(struct Process)) == -1) {
+			//	perror("write to pipe");
+				//exit(EXIT_FAILURE);
+		//	}
+
 
 
 			if (waitpid(pid, NULL, 0) == -1) { //wait for the child process to finish
 				perror("waitpid");
 				exit(EXIT_FAILURE);
 				}
+
+        printf("process id: %d\n", process->pid); //print info
+        printf("path/name: %s\n", process->name);
+        printf("state: %s\n", process->state);
 
 }
 
@@ -279,10 +289,10 @@ time_t end = time(NULL); //get the time at the end of all executions
 printf("total elapsed time: %ld seconds\n\n", end - start);
 
 //close the pipe
- if (close(pipe_fd[1]) == -1) {
-		 perror("close pipe write end");
-		 exit(EXIT_FAILURE);
- }
+// if (close(pipe_fd[1]) == -1) {
+//		 perror("close pipe write end");
+//		 exit(EXIT_FAILURE);
+// }
 
 
  printf("scheduler exits\n\n");
