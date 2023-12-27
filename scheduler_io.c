@@ -27,6 +27,8 @@ struct Process* head = NULL;
 
 //pipes to send messages from the main program to the signal handler
 int pipe_fd[2];
+
+//global variable to store pid of process requesting i/o
 pid_t pid_io;
 
 //function that adds another process descriptor struct to the queue
@@ -59,6 +61,7 @@ struct Process* dequeue(struct Process** head) {
     }
 }
 
+
 /*
 void switch_head_tail(struct Process** head) {
     struct Process** first = (struct Process**)malloc(sizeof(struct Process*));
@@ -79,7 +82,6 @@ void switch_head_tail(struct Process** head) {
 */
 
 
-
 //signal handler function that prints information about the terminated child process
 void child_handler() {
 
@@ -97,7 +99,7 @@ void child_handler() {
 
 //signal handler function right after request of i/o
 void start_io_handler() {
-      pid_io = getpid();
+      pid_io = getpid();  //remember pid of child requesting i/o by storing it to pid_io
       while (head != NULL) { //the queue still has nodes in it
 
       		struct Process* process = dequeue(&head); //remove a node from the queue
@@ -135,7 +137,7 @@ void start_io_handler() {
                exit(EXIT_FAILURE);
                }
 
-             }
+           }
         time_t exit_time = time(NULL); //get the time in the end of the child process
 
         printf("elapsed time: %ld seconds\n\n", exit_time - process->enter);
@@ -145,8 +147,8 @@ void start_io_handler() {
 
 //signal handler function after i/o is completed
 void end_io_handler(){
-            waitpid(pid_io, NULL, WUNTRACED);
-            kill(pid_io, SIGCONT);
+            waitpid(pid_io, NULL, WUNTRACED); //waits for child(i/o completed) to raise(SIGSTOP)
+            kill(pid_io, SIGCONT);            //tells the child(i/o completed) to continue running
 }
 
 
