@@ -61,7 +61,6 @@ struct Process* dequeue(struct Process** head) {
     }
 }
 
-
 /*
 void switch_head_tail(struct Process** head) {
     struct Process** first = (struct Process**)malloc(sizeof(struct Process*));
