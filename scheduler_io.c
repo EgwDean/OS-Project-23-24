@@ -29,7 +29,7 @@ struct Process* head = NULL;
 int pipe_fd[2];
 
 //global variable to store pid of process requesting i/o
-pid_t pid_io;
+pid_t temp;
 
 //function that adds another process descriptor struct to the queue
 void enqueue(struct Process* process, struct Process** head) {
@@ -99,7 +99,8 @@ void child_handler() {
 
 //signal handler function right after request of i/o
 void start_io_handler() {
-      pid_io = getpid();  //remember pid of child requesting i/o by storing it to pid_io
+    //pid_t pid_io = temp;  //remember pid of child requesting i/o by storing it to pid_io
+
       while (head != NULL) { //the queue still has nodes in it
 
       		struct Process* process = dequeue(&head); //remove a node from the queue
@@ -147,6 +148,8 @@ void start_io_handler() {
 
 //signal handler function after i/o is completed
 void end_io_handler(){
+            pid_t pid_io = temp;
+          //  printf("%d\n", pid_io);
             waitpid(pid_io, NULL, WUNTRACED); //waits for child(i/o completed) to raise(SIGSTOP)
             kill(pid_io, SIGCONT);            //tells the child(i/o completed) to continue running
 }
@@ -229,7 +232,7 @@ if (signal(SIGUSR2, end_io_handler) == SIG_ERR) {
 //getting the start time of the program
 time_t start = time(NULL);
 
-while (head != NULL) { //the queue still has nodes in it
+//while (head != NULL) { //the queue still has nodes in it
 
 		struct Process* process = dequeue(&head); //remove a node from the queue
 
@@ -244,7 +247,7 @@ while (head != NULL) { //the queue still has nodes in it
 		}
 
 		else if (pid == 0) { //child process
-
+       temp = getpid();
        execl(process->name, process->name, NULL); //run the executable within the process
      }
 
@@ -265,7 +268,7 @@ while (head != NULL) { //the queue still has nodes in it
 				exit(EXIT_FAILURE);
 				}
 
-}
+//}
 
 			time_t exit_time = time(NULL); //get the time in the end of the child process
 
