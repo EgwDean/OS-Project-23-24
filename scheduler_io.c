@@ -25,7 +25,7 @@ struct Process {
 struct Process* tail = NULL;
 struct Process* head = NULL;
 
-//pipe to send messages from the main program to the signal handler
+//pipes to send messages from the main program to the signal handler
 int pipe_fd[2];
 pid_t pid_io;
 
@@ -135,13 +135,17 @@ void start_io_handler() {
                exit(EXIT_FAILURE);
                }
 
-        }
-}
+             }
+        time_t exit_time = time(NULL); //get the time in the end of the child process
+
+        printf("elapsed time: %ld seconds\n\n", exit_time - process->enter);
+
+      }
 }
 
 //signal handler function after i/o is completed
 void end_io_handler(){
-	    waitpid(pid_io, NULL, WUNTRACED);
+            waitpid(pid_io, NULL, WUNTRACED);
             kill(pid_io, SIGCONT);
 }
 
