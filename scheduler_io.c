@@ -141,6 +141,7 @@ void start_io_handler() {
 
 //signal handler function after i/o is completed
 void end_io_handler(){
+	    waitpid(pid_io, NULL, WUNTRACED);
             kill(pid_io, SIGCONT);
 }
 
