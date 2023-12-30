@@ -178,6 +178,11 @@ int main(int argc, char* argv[]) { //read the arguments from the command line
         exit(EXIT_FAILURE);
     }
 
+    if (close(pipe_fd[0]) == -1) {
+        perror("close pipe read end");
+        exit(EXIT_FAILURE);
+    }
+
     printf("scheduler exits\n\n");
 
     return EXIT_SUCCESS;
