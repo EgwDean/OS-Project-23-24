@@ -66,8 +66,6 @@ struct Process* dequeue(struct Process** head) {
 //signal handler function right after request of i/o
 void start_io_handler() {
 
-      while (head != NULL) { //the queue still has nodes in it
-
       		struct Process* process = dequeue(&head); //remove a node from the queue
 
       		strcpy(process->state, "RUNNING"); //update the status of the process to running
@@ -108,7 +106,7 @@ void start_io_handler() {
         printf("elapsed time: %ld seconds\n\n", exit_time - process->enter);
 
       }
-}
+
 
 //signal handler function after i/o is completed
 void end_io_handler(){
