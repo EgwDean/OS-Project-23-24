@@ -2,7 +2,6 @@
 /* Charalampos Anastasiou, 1093316 */
 /* Filippos Merkourios Dalas, 1096314 */
 
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -67,25 +66,30 @@ struct Process* dequeue(struct Process** head) {
 //signal handler function right after request of i/o
 void start_io_handler() {
 
-      		struct Process* process = dequeue(&head); //remove a node from the queue
+                struct Process* process = dequeue(&head); //remove a node from the queue
 
-      		strcpy(process->state, "RUNNING"); //update the status of the process to running
+                strcpy(process->state, "RUNNING"); //update the status of the process to running
 
-      		pid_t pid = fork(); //creating the process
+                pid_t pid = fork(); //creating the process
 
-      		if (pid == -1) {
-      				perror("fork");
-      				exit(EXIT_FAILURE);
+                if (pid == -1) {
+                                perror("fork");
+                                exit(EXIT_FAILURE);
 
-      		}
+                }
 
-      		else if (pid == 0) { //child process
+                else if (pid == 0) { //child process
 
              execl(process->name, process->name, NULL); //run the executable within the process
+
+             printf("process id: %d\n", process->pid); //print info
+               printf("path/name: %s\n", process->name);
+               printf("state: %s\n", process->state);
+
            }
 
 
-           else { //parent process
+   /*        else { //parent process
              strcpy(process->state, "EXITED"); //update the process status to exited
 
              process->pid = pid; //update the process id to the correct one
@@ -97,14 +101,12 @@ void start_io_handler() {
                }
 
 
-               printf("process id: %d\n", process->pid); //print info
-               printf("path/name: %s\n", process->name);
-               printf("state: %s\n", process->state);
+            //   printf("process id: %d\n", process->pid); //print info
+            //   printf("path/name: %s\n", process->name);
+            //   printf("state: %s\n", process->state);
 
-           }
-        time_t exit_time = time(NULL); //get the time in the end of the child process
+           }*/
 
-        printf("elapsed time: %ld seconds\n\n", exit_time - process->enter);
 
       }
 
@@ -114,8 +116,8 @@ void end_io_handler(){
             pid_t pid_io = temp;
       //    printf("mytest: process %d requested i/o\n", pid_io);
             waitpid(-1, NULL, WUNTRACED);     //waits for child(i/o completed) to raise(SIGSTOP)
-	    waitpid(-1, NULL, 0);		//waits for any other running child to terminate
-	    kill(pid_io, SIGCONT);            //tells the child(i/o completed) to continue running
+            waitpid(-1, NULL, 0);               //waits for any other running child to terminate
+            kill(pid_io, SIGCONT);            //tells the child(i/o completed) to continue running
 }
 
 
@@ -139,24 +141,21 @@ int main(int argc, char* argv[]) { //read the arguments from the command line
     while (fscanf(text_file, "%s\n", name) == 1) { //read from the text file
         struct Process* process = (struct Process*)malloc(sizeof(struct Process)); //memory allocation
         if (process == NULL) {
-					perror("malloc");
-					exit(EXIT_FAILURE);
-			  }
-			strcpy(process->name, name); //initialization of the process descriptor
-			process->pid = -1;
-			process->enter = time(NULL);
-			strcpy(process->state, "NEW");
+                                        perror("malloc");
+                                        exit(EXIT_FAILURE);
+                          }
+                        strcpy(process->name, name); //initialization of the process descriptor
+                        process->pid = -1;
+                        process->enter = time(NULL);
+                        strcpy(process->state, "NEW");
 
-			enqueue(process, &head); //adding the process descriptor struct to the queue
-	}
+                        enqueue(process, &head); //adding the process descriptor struct to the queue
+        }
 
-	if (fclose(text_file) == EOF) { //closing the text file
-			perror("fclose");
-			return EXIT_FAILURE;
-	}
-
-
-
+        if (fclose(text_file) == EOF) { //closing the text file
+                        perror("fclose");
+                        return EXIT_FAILURE;
+        }
 //assigning the signal handler function to the SIGUSR1 signal
 if (signal(SIGUSR1, start_io_handler) == SIG_ERR) {
     perror("signal");
@@ -177,43 +176,42 @@ time_t start = time(NULL);
 
 while (head != NULL) { //the queue still has nodes in it
 
-		struct Process* process = dequeue(&head); //remove a node from the queue
+                struct Process* process = dequeue(&head); //remove a node from the queue
 
-		strcpy(process->state, "RUNNING"); //update the status of the process to running
+                strcpy(process->state, "RUNNING"); //update the status of the process to running
 
-		pid_t pid = fork(); //creating the process
+                pid_t pid = fork(); //creating the process
     temp = pid;
-		if (pid == -1) {
-				perror("fork");
-				exit(EXIT_FAILURE);
+                if (pid == -1) {
+                                perror("fork");
+                                exit(EXIT_FAILURE);
 
-		}
-		else if (pid == 0) { //child process
+                }
+                else if (pid == 0) { //child process
        execl(process->name, process->name, NULL); //run the executable within the process
      }
 
-		else { //parent process
-			strcpy(process->state, "EXITED"); //update the process status to exited
+                else { //parent process
+                        strcpy(process->state, "EXITED"); //update the process status to exited
 
-			process->pid = pid; //update the process id to the correct one
-			
+                        process->pid = pid; //update the process id to the correct one
 
-			if (waitpid(pid, NULL, 0) == -1) { //wait for the child process to finish
-				perror("waitpid");
-				exit(EXIT_FAILURE);
-				}
 
+                        if (waitpid(pid, NULL, 0) == -1) { //wait for the child process to finish
+                                perror("waitpid");
+                                exit(EXIT_FAILURE);
+                                }
         printf("process id: %d\n", process->pid); //print info
         printf("path/name: %s\n", process->name);
         printf("state: %s\n", process->state);
 
 }
 
-			time_t exit_time = time(NULL); //get the time in the end of the child process
+                        time_t exit_time = time(NULL); //get the time in the end of the child process
 
-			printf("elapsed time: %ld seconds\n\n", exit_time - process->enter);
+                        printf("elapsed time: %ld seconds\n\n", exit_time - process->enter);
 
-	}
+        }
 
 time_t end = time(NULL); //get the time at the end of all executions
 
