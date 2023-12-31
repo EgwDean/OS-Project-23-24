@@ -21,7 +21,6 @@ struct Process {
     struct Process* previous;
 };
 
-
 //global variables that set the boundaries of the queue
 struct Process* tail = NULL;
 struct Process* head = NULL;
