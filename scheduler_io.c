@@ -111,8 +111,9 @@ void start_io_handler() {
 void end_io_handler(){
             pid_t pid_io = temp;
             printf("mytest: process %d requested i/o\n", pid_io);
+	    waitpid(getpid(), NULL, 0);
             waitpid(-1, NULL, WUNTRACED);     //waits for child(i/o completed) to raise(SIGSTOP)
-            kill(pid_io, SIGCONT);            //tells the child(i/o completed) to continue running
+	    kill(pid_io, SIGCONT);            //tells the child(i/o completed) to continue running
 }
 
 
