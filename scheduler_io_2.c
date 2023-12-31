@@ -11,6 +11,7 @@
 #include <sys/wait.h>
 #include <sys/types.h>
 
+
 //process descriptor struct with basic info about each process
 struct Process {
     char name[50];
