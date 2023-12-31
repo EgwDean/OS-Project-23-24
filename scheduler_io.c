@@ -81,10 +81,6 @@ void start_io_handler() {
 
              execl(process->name, process->name, NULL); //run the executable within the process
 
-             printf("process id: %d\n", process->pid); //print info
-               printf("path/name: %s\n", process->name);
-               printf("state: %s\n", process->state);
-
            }
 
 
