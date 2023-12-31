@@ -62,26 +62,6 @@ struct Process* dequeue(struct Process** head) {
 }
 
 
-/*
-void switch_head_tail(struct Process** head) {
-    struct Process** first = (struct Process**)malloc(sizeof(struct Process*));
-    if (*head != NULL) { //the queue is not empty
-
-    (*first) = (*head);
-    while(*head != NULL){
-			struct Process* process = *head;
-			*head = process->next;
-			}
-	(*first)->next = NULL;
-	(*first)->previous = (*head)->previous;
-	(*head)->previous = NULL;
-	(*head)->next = (*first)->next;
-  free(first);
-}
-}
-*/
-
-
 //signal handler function that prints information about the terminated child process
 //void child_handler() {
 
