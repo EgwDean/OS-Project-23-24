@@ -117,7 +117,6 @@ void start_io_handler() {
 
 //signal handler function after i/o is completed
 void end_io_handler(){
-           int status;
             pid_t pid_io = temp;
       //    printf("mytest: process %d requested i/o\n", pid_io);
             waitpid(-1, NULL, WUNTRACED);     //waits for child(i/o completed) to raise(SIGSTOP)
