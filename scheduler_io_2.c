@@ -31,7 +31,7 @@ pid_t temp;
 
 //global variable used as flag to determine if there is another process running,
 //before the process that completed i/o continues
-int flag_running_process;
+int flag_running_process=0;
 
 //function that adds another process descriptor struct to the queue
 void enqueue(struct Process* process, struct Process** head) {
