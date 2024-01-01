@@ -11,6 +11,7 @@
 #include <sys/wait.h>
 #include <sys/types.h>
 
+
 //process descriptor struct with basic info about each process
 struct Process {
     char name[50];
@@ -25,11 +26,11 @@ struct Process {
 struct Process* tail = NULL;
 struct Process* head = NULL;
 
-//pipes to send messages from the main program to the signal handler
-int pipe_fd[2];
 
 //global variable to store pid of process requesting i/o
 pid_t temp;
+int flag_running_process;
+int stop_waiting = 0;
 
 //function that adds another process descriptor struct to the queue
 void enqueue(struct Process* process, struct Process** head) {
@@ -64,7 +65,8 @@ struct Process* dequeue(struct Process** head) {
 
 //signal handler function right after request of i/o
 void start_io_handler() {
-
+         if (head != NULL){
+                flag_running_process=1;
                 struct Process* process = dequeue(&head); //remove a node from the queue
 
                 strcpy(process->state, "RUNNING"); //update the status of the process to running
@@ -84,7 +86,7 @@ void start_io_handler() {
            }
 
 
-   /*        else { //parent process
+             else { //parent process
              strcpy(process->state, "EXITED"); //update the process status to exited
 
              process->pid = pid; //update the process id to the correct one
@@ -95,15 +97,22 @@ void start_io_handler() {
                exit(EXIT_FAILURE);
                }
 
-
-            //   printf("process id: %d\n", process->pid); //print info
-            //   printf("path/name: %s\n", process->name);
-            //   printf("state: %s\n", process->state);
-
-           }*/
+               kill(getpid(), SIGALRM);
 
 
+               printf("process id: %d\n", process->pid); //print info
+               printf("path/name: %s\n", process->name);
+               printf("state: %s\n", process->state);
+
+           }
+
+           time_t exit_time = time(NULL); //get the time in the end of the child process
+
+           printf("elapsed time: %ld seconds\n\n", exit_time - process->enter);
+
+}
       }
+
 
 
 //signal handler function after i/o is completed
@@ -111,8 +120,18 @@ void end_io_handler(){
             pid_t pid_io = temp;
       //    printf("mytest: process %d requested i/o\n", pid_io);
             waitpid(-1, NULL, WUNTRACED);     //waits for child(i/o completed) to raise(SIGSTOP)
-            waitpid(-1, NULL, 0);               //waits for any other running child to terminate
-            kill(pid_io, SIGCONT);            //tells the child that completed i/o to continue running
+
+        if(flag_running_process==1){
+                while(stop_waiting == 0) {
+                    sleep(0.1);
+                };
+        kill(pid_io, SIGCONT); //tells the child that completed i/o to continue runningv
+        stop_waiting = 0;
+        }
+}
+
+void stop_waiting_handler() {
+    stop_waiting = 1;
 }
 
 
@@ -165,6 +184,11 @@ if (signal(SIGUSR2, end_io_handler) == SIG_ERR) {
   }
 
 
+//assigning the signal handler function to the SIGALRM signal
+if (signal(SIGALRM, stop_waiting_handler) == SIG_ERR) {
+    perror("signal");
+    exit(EXIT_FAILURE);
+  }
 
 //getting the start time of the program
 time_t start = time(NULL);
@@ -176,7 +200,7 @@ while (head != NULL) { //the queue still has nodes in it
                 strcpy(process->state, "RUNNING"); //update the status of the process to running
 
                 pid_t pid = fork(); //creating the process
-    temp = pid;
+                temp = pid;
                 if (pid == -1) {
                                 perror("fork");
                                 exit(EXIT_FAILURE);
