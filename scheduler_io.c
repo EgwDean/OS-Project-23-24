@@ -110,9 +110,9 @@ void start_io_handler() {
 
            }
 
-            time_t exit_time = time(NULL); //get the time in the end of the child process
+            time_t end = time(NULL); //get the time at the end of all executions
 
-            printf("elapsed time: %ld seconds\n\n", exit_time - process->enter);
+            printf("total elapsed time: %ld seconds\n\n", end - start);
   
 }
       }
