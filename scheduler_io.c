@@ -126,7 +126,9 @@ void end_io_handler(){
                 while(stop_waiting = 0) {
                     sleep(0.1);
                 };
-        kill(pid_io, SIGCONT);}            //tells the child that completed i/o to continue running
+        kill(pid_io, SIGCONT); //tells the child that completed i/o to continue runningv
+        stop_waiting = 0;
+        }
 }
 
 void stop_waiting_handler() {
