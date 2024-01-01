@@ -26,9 +26,6 @@ struct Process {
 struct Process* tail = NULL;
 struct Process* head = NULL;
 
-//pipes to send messages from the main program to the signal handler
-int pipe_fd[2];
-
 //global variable to store pid of process requesting i/o
 pid_t temp;
 int flag_running_process;
