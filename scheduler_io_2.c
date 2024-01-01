@@ -28,6 +28,9 @@ struct Process* head = NULL;
 
 //global variable to store pid of process requesting i/o
 pid_t temp;
+
+//global variable used as flag to determine if there is another process running,
+//before the process that completed i/o continues
 int flag_running_process;
 
 //function that adds another process descriptor struct to the queue
