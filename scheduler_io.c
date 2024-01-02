@@ -26,7 +26,6 @@ struct Process {
 struct Process* tail = NULL;
 struct Process* head = NULL;
 
-time_t diff;  //global variable store the duration of running process 
 
 //global variable to store pid of process requesting i/o
 pid_t temp;
@@ -68,9 +67,9 @@ struct Process* dequeue(struct Process** head) {
 
 //signal handler function right after request of i/o
 void start_io_handler() {
-    
+
          //getting the start time of the program
-         time_t start = time(NULL);
+
          if (head != NULL){
                 flag_running_process=1;
                 struct Process* process = dequeue(&head); //remove a node from the queue
@@ -92,7 +91,7 @@ void start_io_handler() {
            }
 
 
-           else { //parent process
+/*           else { //parent process
              strcpy(process->state, "EXITED"); //update the process status to exited
 
              process->pid = pid; //update the process id to the correct one
@@ -108,29 +107,23 @@ void start_io_handler() {
                printf("path/name: %s\n", process->name);
                printf("state: %s\n", process->state);
 
-           }
+           }*/
 
-            time_t end = time(NULL); //get the time at the end of all executions
 
-            printf("total elapsed time: %ld seconds\n\n", end - start);
-  
 }
       }
 
-
-
 //signal handler function after i/o is completed
 void end_io_handler(){
-    
+
             pid_t pid_io = temp;
       //    printf("mytest: process %d requested i/o\n", pid_io);
             waitpid(pid_io, NULL, WUNTRACED);     //waits for child(i/o completed) to raise(SIGSTOP)
 
             if(flag_running_process==1){
-            sleep(diff); }                    //sleeps for time duration of any running process 
+            waitpid(-1, NULL, 0); }
             kill(pid_io, SIGCONT);            //tells the child that completed i/o to continue running
 }
-
 
 int main(int argc, char* argv[]) { //read the arguments from the command line
     if (argc != 3 || strcmp(argv[1], "FCFS") != 0) {
@@ -181,7 +174,6 @@ if (signal(SIGUSR2, end_io_handler) == SIG_ERR) {
   }
 
 
-
 //getting the start time of the program
 time_t start = time(NULL);
 
@@ -207,7 +199,6 @@ while (head != NULL) { //the queue still has nodes in it
 
                         process->pid = pid; //update the process id to the correct one
 
-
                         if (waitpid(pid, NULL, 0) == -1) { //wait for the child process to finish
                                 perror("waitpid");
                                 exit(EXIT_FAILURE);
@@ -231,6 +222,6 @@ printf("total elapsed time: %ld seconds\n\n", end - start);
 
 
  printf("scheduler exits\n\n");
-
  return EXIT_SUCCESS;
 }
+
