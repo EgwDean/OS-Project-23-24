@@ -115,7 +115,7 @@ void start_io_handler() {
 void end_io_handler(){
             pid_t pid_io = temp;
 
-            waitpid(-1, NULL, WUNTRACED);     //waits for child(i/o completed) to raise(SIGSTOP)
+            waitpid(pid_io, NULL, WUNTRACED);     //waits for child(i/o completed) to raise(SIGSTOP)
 
         if(flag_running_process == 1){
                 while(waitpid(-1, NULL, WNOHANG)) {
