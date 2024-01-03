@@ -121,7 +121,7 @@ void end_io_handler(){
                 while(waitpid(-1, NULL, WNOHANG)) {
                     sleep(0);
                 }
-        kill(pid_io, SIGCONT); //tells the child that completed i/o to continue runningv
+        kill(pid_io, SIGCONT); //tells the child that completed i/o to continue running
 
         flag_running_process = 0; //flag reset
         }
