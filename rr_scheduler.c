@@ -76,7 +76,7 @@ void child_handler() {
 }
 
 int main(int argc, char* argv[]) { //read the arguments from the command line
-    if (argc != 4 || strcmp(argv[1], "FCFS") != 0) {
+    if (argc != 4 || strcmp(argv[1], "RR") != 0) {
         printf("Run with: ./scheduler <algorithm_name> <quantum> <text_file>\n");
         return EXIT_FAILURE;
     }
@@ -116,7 +116,7 @@ int main(int argc, char* argv[]) { //read the arguments from the command line
     char *ptr;
     //nanosleep
     struct timespec remaining = {strtol(argv[2], &ptr, 10), 0};
-    struct timespec request = {strtol(argv[2], &ptr, 10)};
+    struct timespec request = {strtol(argv[2], &ptr, 10), 0};
 
 
     //creation of a pipe for communication between the parent process and the signal handler
