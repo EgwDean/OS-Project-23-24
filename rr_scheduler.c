@@ -145,7 +145,6 @@ int main(int argc, char* argv[]) { //read the arguments from the command line
         int finished = nanosleep(&remaining, &request);
         if(finished == 0){
 
-          dequeue(&head);
           kill(temp->pid, SIGSTOP);
           strcpy(temp->state, "STOPPED");
           enqueue(temp, &head);
