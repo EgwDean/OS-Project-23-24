@@ -139,26 +139,25 @@ int main(int argc, char* argv[]) { //read the arguments from the command line
 
     //getting the start time of the program
     time_t start = time(NULL);
-    struct Process** temp=(struct Process**)malloc(sizeof(struct Process*));
+    struct Process* temp=(struct Process*)malloc(sizeof(struct Process));
 
     while (head != NULL) { //the queue still has nodes in it
 
         int finished = nanosleep(&remaining, &request);
-        //printf("%d\n", (*temp)->pid);
+        
         if(finished == 0){
 
-          kill((*temp)->pid, SIGSTOP);
-          strcpy((*temp)->state, "STOPPED");
-          printf("reached here.\n");
-          enqueue((*temp), &head);
+          kill(temp->pid, SIGSTOP);
+          strcpy(temp->state, "STOPPED");
+          enqueue(temp, &head);
       }
       else
       {
             struct Process* process = dequeue(&head); //remove a node from the queue
-            (*temp)=process;  //pointer to descriptor of currently running process
+            temp=process;  //pointer to descriptor of currently running process
 
-            if(strcmp((*temp)->state, "STOPPED")==0){
-            kill((*temp)->pid, SIGCONT);
+            if(strcmp(temp->state, "STOPPED")==0){
+            kill(temp->pid, SIGCONT);
             }
             else{
               strcpy(process->state, "RUNNING"); //update the status of the process to running
