@@ -106,6 +106,7 @@ int main(int argc, char* argv[]) { //read the arguments from the command line
         enqueue(process, &head); //adding the process descriptor struct to the queue
     }
 
+
     if (fclose(text_file) == EOF) { //closing the text file
         perror("fclose");
         return EXIT_FAILURE;
@@ -143,10 +144,12 @@ int main(int argc, char* argv[]) { //read the arguments from the command line
     while (head != NULL) { //the queue still has nodes in it
 
         int finished = nanosleep(&remaining, &request);
+        //printf("%d\n", (*temp)->pid);
         if(finished == 0){
 
           kill((*temp)->pid, SIGSTOP);
           strcpy((*temp)->state, "STOPPED");
+          printf("reached here.\n");
           enqueue((*temp), &head);
       }
       else
